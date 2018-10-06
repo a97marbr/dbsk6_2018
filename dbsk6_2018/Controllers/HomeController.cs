@@ -10,34 +10,22 @@ namespace dbsk6_2018.Controllers
 {
     public class HomeController : Controller
     {
+        private StudentsModel sm = new StudentsModel();
+        private StudyProgramModel sp = new StudyProgramModel();
+
         public IActionResult Index()
         {
+            ViewBag.AllStudyProgramsTable = sp.GetAllStudyPrograms();
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+        //
+        // GET: /Home/SearchStudents/{name}?studyProgram={studyProgram}
 
+        public IActionResult SearchStudents(string name, string studyProgram)
+        {
+            ViewBag.SearchResults = sm.SearchStudents(name, studyProgram);
             return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
